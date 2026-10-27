@@ -1,11 +1,5 @@
 require("L5")
 
-chaosBlue = {56, 43, 115}
-
-chaosGreen = {83, 43, 88}
-
-chaosTeal = {42, 63, 77}
-
 function setup()
   size(800, 600)
 
@@ -15,9 +9,21 @@ function setup()
   noiseLevel = 200
   --The size of the chaos pattern particles, larger scale equals smaller particles
   noiseScale = 0.003
+
+  chaosBlue = {56, 43, 115}
+
+  chaosGreen = {83, 43, 88}
+
+  chaosTeal = {42, 63, 77}
+
+  locationX = {}
+
+  locationY = {}
 end
 
 function draw()
+
+  top = frameCount*30
 
   background(255)
   --Iterate from top to bottom, then left to right
@@ -34,7 +40,7 @@ function draw()
 
       --Green Pattern
       stroke(83, 43, 88, a)
-      point(x, y)
+      point(x, y + top)
     end
   end
 
@@ -52,7 +58,7 @@ function draw()
 
       --Blue Pattern
       stroke(56, 43, 115, a)
-      point(x, y)
+      point(x, y + top)
     end
   end
 
@@ -70,32 +76,38 @@ function draw()
 
       --Teal Pattern
       stroke(42, 63, 77, a)
-      point(x, y)
+      point(x, y + top)
     end
   end
 
   --Change the number of circles drawn depending on how long has passed
   number = ceil(frameCount)
 
+
   --Sequentially draw an increasing number of green circles
   for c=1, number do
 
+    noStroke()
+
     --randomSeed keeps the locations of the circles consistent as they are drawn
-    randomSeed(c+1)
+    randomSeed(c+16)
     
     --Logic to make the circles be drawn in a grid area a certain distance apart from each other.
-    local xLocation = random(width*((0.198*(c-1))%1), width*((0.198*c)%1))
-    local yLocation = random(height*0.25*(ceil(c/5)-1), height*0.25*ceil(c/5))
+    locationX[c] = random(width*((0.198*(c-1))%1), width*((0.198*c)%1))
+    locationY[c] = random(height*0.25*(ceil(c/5)-1), height*0.25*ceil(c/5))
     
     --Draw larger and smaller green circles with positions based on the above calculations
     fill(128,239,128,180)
-    circle(xLocation, yLocation, height*0.1)
+    circle(locationX[c], locationY[c], height*0.1)
     fill(76,187,23)
-    circle(xLocation, yLocation, height*0.05)
+    circle(locationX[c], locationY[c], height*0.05)
 
     --Attempting to draw a line between the circles, unsure how to save the coordinates of the previous circle.
     if c >= 2 then
-    line(xLocation, yLocation, --unknown, unknown)
+      stroke(76,187,23)
+      strokeWeight(10)
+      line(locationX[c], locationY[c], locationX[c-1], locationY[c-1])
+      noStroke()
     end
   end
 end
