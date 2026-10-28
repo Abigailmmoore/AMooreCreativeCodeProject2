@@ -19,6 +19,8 @@ function setup()
   locationX = {}
 
   locationY = {}
+
+  seed = random(0, 12)
 end
 
 function draw()
@@ -27,6 +29,8 @@ function draw()
 
   background(255)
   --Iterate from top to bottom, then left to right
+  strokeWeight(1)
+
   for y=1, height do
     for x=1, width do
 
@@ -90,10 +94,10 @@ function draw()
     noStroke()
 
     --randomSeed keeps the locations of the circles consistent as they are drawn
-    randomSeed(c+16)
+    randomSeed(c+seed)
     
     --Logic to make the circles be drawn in a grid area a certain distance apart from each other.
-    locationX[c] = random(width*((0.198*(c-1))%1), width*((0.198*c)%1))
+    locationX[c] = random(width*((0.199*(c-1))%1), width*((0.199*c)%1))
     locationY[c] = random(height*0.25*(ceil(c/5)-1), height*0.25*ceil(c/5))
     
     --Draw larger and smaller green circles with positions based on the above calculations
