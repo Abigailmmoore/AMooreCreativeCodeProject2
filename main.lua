@@ -10,27 +10,27 @@ function setup()
   --The size of the chaos pattern particles, larger scale equals smaller particles
   noiseScale = 0.003
 
-  chaosBlue = {56, 43, 115}
-
-  chaosGreen = {83, 43, 88}
-
-  chaosTeal = {42, 63, 77}
-
+  --Arrays for holding the circle coordinates
   locationX = {}
 
   locationY = {}
 
+  --Chooses a random number for the randomSeed function each time the program is run
   seed = random(0, 12)
 end
 
 function draw()
 
+  --The top coordinate of the Chaos pattern, increases over time, causing the pattern to move downwards
   top = frameCount*30
 
+  --The background color
   background(255)
-  --Iterate from top to bottom, then left to right
+  
+  --Sets the size of the dots used to make the Chaos pattern
   strokeWeight(1)
 
+  --Iterate from top to bottom, then left to right
   for y=1, height do
     for x=1, width do
 
@@ -87,7 +87,6 @@ function draw()
   --Change the number of circles drawn depending on how long has passed
   number = ceil(frameCount)
 
-
   --Sequentially draw an increasing number of green circles
   for c=1, number do
 
@@ -96,7 +95,7 @@ function draw()
     --randomSeed keeps the locations of the circles consistent as they are drawn
     randomSeed(c+seed)
     
-    --Logic to make the circles be drawn in a grid area a certain distance apart from each other.
+    --Logic to make the circles be drawn within grid squares a certain distance apart from each other.
     locationX[c] = random(width*((0.199*(c-1))%1), width*((0.199*c)%1))
     locationY[c] = random(height*0.25*(ceil(c/5)-1), height*0.25*ceil(c/5))
     
@@ -106,12 +105,11 @@ function draw()
     fill(76,187,23)
     circle(locationX[c], locationY[c], height*0.05)
 
-    --Attempting to draw a line between the circles, unsure how to save the coordinates of the previous circle.
+    --Once two circles have been drawn, start connecting the circles with lines
     if c >= 2 then
       stroke(76,187,23)
       strokeWeight(10)
       line(locationX[c], locationY[c], locationX[c-1], locationY[c-1])
-      noStroke()
     end
   end
 end
