@@ -25,7 +25,7 @@ function draw()
   top = frameCount*30
 
   --The background color
-  background(255)
+  background(255, 232, 0, 30)
   
   --Sets the size of the dots used to make the Chaos pattern
   strokeWeight(1)
@@ -100,7 +100,7 @@ function draw()
     locationY[c] = random(height*0.25*(ceil(c/5)-1), height*0.25*ceil(c/5))
     
     --Draw larger and smaller green circles with positions based on the above calculations
-    fill(255, 232, 0,180)
+    fill(255, 232, 0, 100)
     circle(locationX[c], locationY[c], height*0.1)
     fill(255, 232, 0)
     circle(locationX[c], locationY[c], height*0.05)

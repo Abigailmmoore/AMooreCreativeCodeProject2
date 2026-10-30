@@ -25,7 +25,7 @@ function draw()
   top = frameCount*30
 
   --The background color
-  background(255)
+  background(76,187,23,20)
   
   --Sets the size of the dots used to make the Chaos pattern
   strokeWeight(1)
